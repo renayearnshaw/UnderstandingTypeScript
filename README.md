@@ -9,4 +9,4 @@ file and pasting into a browser. You can then interrogate the code in the `app.j
 
 To see the affect of code changes immediately in the browser we use `lite-server`, which is run via `npm start`.
 `lite-server` is a simple _development only_ server which serves a web app (from the `index.html` file in the 
-root directory) on the URL `localhost:3000`. It refreshes when HTML or JavaScript changes are made.
+root directory) on the URL `localhost:3000`. It refreshes whenever HTML or JavaScript changes are made.
