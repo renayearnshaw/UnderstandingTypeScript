@@ -97,5 +97,8 @@
     /* Completeness */
     // "skipDefaultLibCheck": true,                      /* Skip type checking .d.ts files that are included with TypeScript. */
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
-  }
+  },
+  "exclude": [
+    "node_modules"  // this is the default action so this on it's own isn't necessary, but if we do add exclude for other files we need to specify this
+  ]
 }
