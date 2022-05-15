@@ -5,7 +5,8 @@ class Department {
         this.name = name
     }
 
-    describe() {
+    // 'this' should always refer to an instance of type Department
+    describe(this: Department) {
         console.log(`Department is called ${this.name}`)
     }
 }
@@ -14,7 +15,7 @@ const accounting = new Department('accounting')
 
 accounting.describe()
 
-const accountingCopy = { describe: accounting.describe }
-// This will print 'Department is called undefined' because the calling object -
-// accountingCopy - doesn't have a name property
+const accountingCopy = { name: 'New Department',  describe: accounting.describe }
+// We would get a compile error because the describe method is not being called
+// on an instance of type Department - so we must add a name property
 accountingCopy.describe()
