@@ -1,5 +1,5 @@
 class Department {
-    name: string
+    private name: string
 
     constructor(name: string) {
         this.name = name
@@ -16,6 +16,5 @@ const accounting = new Department('accounting')
 accounting.describe()
 
 const accountingCopy = { name: 'New Department',  describe: accounting.describe }
-// We would get a compile error because the describe method is not being called
-// on an instance of type Department - so we must add a name property
+// We get a compile error now because the name property is private
 accountingCopy.describe()
