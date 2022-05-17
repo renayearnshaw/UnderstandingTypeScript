@@ -1,8 +1,9 @@
 class Department {
-    private name: string
 
-    constructor(name: string) {
-        this.name = name
+    // Use constructor shorthand to create and assign class properties
+    // from constructor params by adding access modifiers.
+    // These are called 'Parameter Properties'
+    constructor(private name: string) {
     }
 
     // 'this' should always refer to an instance of type Department
@@ -17,4 +18,4 @@ accounting.describe()
 
 const accountingCopy = { name: 'New Department',  describe: accounting.describe }
 // We get a compile error now because the name property is private
-accountingCopy.describe()
+// accountingCopy.describe()
