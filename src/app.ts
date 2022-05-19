@@ -27,17 +27,21 @@ class Department {
 }
 
 class ITDepartment extends Department {
-    constructor(id: string) {
+    admins: string[]
+    constructor(id: string, admins: string[]) {
         super(id, 'IT')
+        // Any assignments to this must be done after the super has been called.
+        // We could use a parameter property here and it would achieve the same thing.
+        this.admins = admins
     }
 }
 
-const accounting = new ITDepartment('a54')
+const it = new ITDepartment('a54', ['Max'])
 
-accounting.addEmployee('Max');
-accounting.addEmployee('Manu');
+it.addEmployee('Max');
+it.addEmployee('Manu');
 
-accounting.describe()
-accounting.printEmployeeInformation();
+it.describe()
+it.printEmployeeInformation();
 
-const accountingCopy = { name: 'New Department',  describe: accounting.describe }
+console.log(it)
