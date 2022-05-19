@@ -1,5 +1,5 @@
 class Department {
-    private employees: string[] = []
+    protected employees: string[] = []
 
     // Use constructor shorthand to create and assign class properties
     // from constructor params by adding access modifiers.
@@ -34,11 +34,20 @@ class ITDepartment extends Department {
         // We could use a parameter property here and it would achieve the same thing.
         this.admins = admins
     }
+
+    addEmployee(employee: string) {
+        if (employee === 'Renay') {
+            // Renay isn't suitable - she's too old :)
+            return
+        }
+        // employees must be protected, not private, for this to be allowed
+        this.employees.push(employee);
+    }
 }
 
 const it = new ITDepartment('a54', ['Max'])
 
-it.addEmployee('Max');
+it.addEmployee('Renay');
 it.addEmployee('Manu');
 
 it.describe()
