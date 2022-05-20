@@ -20,6 +20,7 @@ class Department {
 
 class ITDepartment extends Department {
     admins: string[]
+
     constructor(id: string, admins: string[]) {
       super(id, 'IT')
       this.admins = admins
@@ -27,11 +28,24 @@ class ITDepartment extends Department {
 }
   
 class AccountingDepartment extends Department {
+    private lastReport: string
 
     constructor(id: string, private reports: string[]) {
       super(id, 'Accounting')
+      this.lastReport = reports[0]
     }
   
+    get mostRecentReport() {
+      return this.lastReport
+    }
+
+    set mostRecentReport(report: string) {
+      if (!report) {
+        throw new Error('Report must be a valid value')
+      } 
+      this.addReport(report)
+    }
+
     addEmployee(name: string) {
       if (name === 'Max') {
         // Max is not suitable for the job
@@ -42,6 +56,7 @@ class AccountingDepartment extends Department {
   
     addReport(text: string) {
       this.reports.push(text)
+      this.lastReport = text
     }
   
     printReports() {
@@ -54,19 +69,19 @@ const it = new ITDepartment('d1', ['Max'])
 it.addEmployee('Max')
 it.addEmployee('Manu')
 
-// it.employees[2] = 'Anna'
-
 it.describe()
 it.printEmployeeInformation()
-
-console.log(it)
 
 const accounting = new AccountingDepartment('d2', [])
 
 accounting.addReport('Something went wrong...')
+accounting.addReport('Another thing went wrong...')
+accounting.mostRecentReport = 'Adding a curve ball...'
 
 accounting.addEmployee('Max')
 accounting.addEmployee('Manu')
 
 accounting.printReports()
 accounting.printEmployeeInformation()
+
+console.log(accounting.mostRecentReport)
