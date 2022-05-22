@@ -1,13 +1,11 @@
-class Department {
+abstract class Department {
   static fiscalYear = 2022
     protected employees: string[] = []
 
-    constructor(private readonly id: string, private name: string) {
+    constructor(protected readonly id: string, private name: string) {
     }
 
-    describe(this: Department) {
-        console.log(`Department (${this.id}): ${this.name}`)
-    }
+    abstract describe(this: Department): void 
 
     addEmployee(employee: string) {
         this.employees.push(employee)
@@ -25,6 +23,10 @@ class ITDepartment extends Department {
     constructor(id: string, admins: string[]) {
       super(id, 'IT')
       this.admins = admins
+    }
+
+    describe() {
+      console.log(`IT department - id: ${this.id}`)
     }
 }
   
@@ -45,6 +47,10 @@ class AccountingDepartment extends Department {
         throw new Error('Report must be a valid value')
       } 
       this.addReport(report)
+    }
+
+    describe() {
+      console.log(`Accounting department - id: ${this.id}`)
     }
 
     addEmployee(name: string) {
@@ -85,5 +91,6 @@ accounting.addEmployee('Manu')
 
 accounting.printReports()
 accounting.printEmployeeInformation()
+accounting.describe()
 
 console.log(accounting.mostRecentReport)
