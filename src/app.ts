@@ -1,4 +1,4 @@
-interface Person {
+type Person = {
     name: string
     age: number
     
