@@ -1,18 +1,21 @@
-type Person = {
+interface Greetable {
     name: string
-    age: number
     
     greet(phrase: string): void
 }
 
-let user1: Person
+class Person implements Greetable {
+    constructor(public name: string, private age: number) {
+    }
 
-user1 = {
-    name: 'Renay',
-    age: 21,
     greet(phrase: string) {
-        console.log(`${phrase} ${this.name}`)
+        console.log(`${phrase} ${this.name} and I'm ${this.age}`)
     }
 }
 
+let user1: Greetable
+
+user1 = new Person('Renay', 21)
+
 user1.greet("Hello, I'm")
+console.log(user1)
