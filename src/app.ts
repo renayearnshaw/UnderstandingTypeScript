@@ -28,24 +28,18 @@ class Person implements Greetable {
     // name is optional - it might not be set in the constructor
     readonly name?: string
 
-    constructor(name: string, private age: number) {
-        if (name) {
-            this.name = name
-        }
+    constructor(name: string = 'default_name', private age: number) {
+        this.name = name
     }
 
     greet(phrase: string) {
-        if (this.name) {
-            console.log(`${phrase} ${this.name} and I'm ${this.age}`)
-        } else {
-            console.log('Hi')
-        }
+        console.log(`${phrase} ${this.name} and I'm ${this.age}`)
     }
 }
 
 let user1: Greetable
 
-user1 = new Person('', 21)
+user1 = new Person(undefined, 21)
 // won't compile
 // user1.name = 'Phil'
 
