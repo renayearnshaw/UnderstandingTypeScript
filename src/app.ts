@@ -1,5 +1,12 @@
-// create a function type as a custom type
-type AddFn =  (a: number, b: number) => number
+// Create a function type using an interface.
+// Interfaces are used to define the structure of an object,
+// but functions ARE objects, and can thus also be defined with an interface
+// type AddFn =  (a: number, b: number) => number
+interface AddFn {
+    // Creates an ANONYMOUSE function definiton.
+    // Same as the greet method definiton below, but without a method name
+    (a: number, b: number): number
+}
 
 let addFn: AddFn
 
