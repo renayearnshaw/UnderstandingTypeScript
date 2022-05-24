@@ -1,3 +1,12 @@
+// create a function type as a custom type
+type AddFn =  (a: number, b: number) => number
+
+let addFn: AddFn
+
+addFn = (n1: number, n2: number) => {
+    return n1 + n2
+}
+
 interface Named {
     readonly name: string
 }
