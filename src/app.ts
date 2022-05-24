@@ -15,7 +15,9 @@ addFn = (n1: number, n2: number) => {
 }
 
 interface Named {
-    readonly name: string
+    // all properties are optional
+    readonly name?: string
+    outputName?: string
 }
 
 interface Greetable extends Named {
@@ -23,17 +25,27 @@ interface Greetable extends Named {
 }
 
 class Person implements Greetable {
-    constructor(readonly name: string, private age: number) {
+    // name is optional - it might not be set in the constructor
+    readonly name?: string
+
+    constructor(name: string, private age: number) {
+        if (name) {
+            this.name = name
+        }
     }
 
     greet(phrase: string) {
-        console.log(`${phrase} ${this.name} and I'm ${this.age}`)
+        if (this.name) {
+            console.log(`${phrase} ${this.name} and I'm ${this.age}`)
+        } else {
+            console.log('Hi')
+        }
     }
 }
 
 let user1: Greetable
 
-user1 = new Person('Renay', 21)
+user1 = new Person('', 21)
 // won't compile
 // user1.name = 'Phil'
 
