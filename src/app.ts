@@ -1,11 +1,11 @@
 interface Greetable {
-    name: string
+    readonly name: string
     
     greet(phrase: string): void
 }
 
 class Person implements Greetable {
-    constructor(public name: string, private age: number) {
+    constructor(readonly name: string, private age: number) {
     }
 
     greet(phrase: string) {
@@ -16,6 +16,8 @@ class Person implements Greetable {
 let user1: Greetable
 
 user1 = new Person('Renay', 21)
+// won't compile
+// user1.name = 'Phil'
 
 user1.greet("Hello, I'm")
 console.log(user1)
