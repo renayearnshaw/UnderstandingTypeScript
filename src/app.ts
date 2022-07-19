@@ -1,9 +1,14 @@
-function Logger(constructor: Function) {
-  console.log("Logging...");
-  console.log(constructor)
+// A factory that returns a decorator function
+function Logger(logString: string) {
+  return function (constructor: Function) {
+    console.log(logString);
+    console.log(constructor);
+  };
 }
 
-@Logger
+// Executing the function returns a decorator
+// that uses the string passed in
+@Logger("LOGGING PERSON CLASS")
 class Person {
   name = "Max";
 
