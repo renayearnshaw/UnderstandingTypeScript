@@ -1,15 +1,17 @@
 // A factory that returns a decorator function
 function WithTemplate(template: string, hookId: string) {
-  return function (_: Function) {
+  return function (constructor: any) {
+    const person = new constructor();
     const hookElement = document.getElementById(hookId);
     if (hookElement) {
       hookElement.innerHTML = template;
+      hookElement.querySelector('h1')!.textContent += ` is ${person.name}`;
     }
   };
 }
 
 // Executing the function returns a decorator
-// that uses the string passed in
+// that uses the strings passed in
 @WithTemplate('<h1>My Person object</h1>', 'app')
 class Person {
   name = 'Max';
