@@ -8,12 +8,12 @@ function Logger(logString: string) {
 
 // Executing the function returns a decorator
 // that uses the string passed in
-@Logger("LOGGING PERSON CLASS")
+@Logger('LOGGING PERSON CLASS')
 class Person {
-  name = "Max";
+  name = 'Max';
 
   constructor() {
-    console.log("Creating person object...");
+    console.log('Creating person object...');
   }
 }
 
