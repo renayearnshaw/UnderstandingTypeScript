@@ -1,26 +1,31 @@
-// A factory that returns a decorator function
-function WithTemplate(template: string, hookId: string) {
-  return function (constructor: any) {
-    const person = new constructor();
-    const hookElement = document.getElementById(hookId);
-    if (hookElement) {
-      hookElement.innerHTML = template;
-      hookElement.querySelector('h1')!.textContent += ` is ${person.name}`;
-    }
-  };
+// Decorator function that's called on an instance property and receives the arguments:
+//   1. The prototype of the class containing the property
+//   2. The name of the property
+// It will run when the class definition is registered by JavaScript
+function Log(target: any, propertyName: string | Symbol) {
+  console.log('Property decorator!');
+  console.log(target, propertyName);
 }
 
-// Executing the function returns a decorator
-// that uses the strings passed in
-@WithTemplate('<h1>My Person object</h1>', 'app')
-class Person {
-  name = 'Max';
+class Product {
+  @Log
+  title: string;
+  private _price: number;
 
-  constructor() {
-    console.log('Creating person object...');
+  set price(val: number) {
+    if (val > 0) {
+      this._price = val;
+    } else {
+      throw new Error('Price must be positive')
+    }
+  }
+
+  constructor(t: string, p: number) {
+    this.title = t;
+    this._price = p;
+  }
+
+  getPriceWithTax(tax: number) {
+    return this._price * (1 + tax);
   }
 }
-
-const person = new Person();
-
-console.log(person);
