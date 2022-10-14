@@ -76,8 +76,58 @@ class Product {
   }
 }
 
+interface ValidatorConfig {
+  [className: string]: {
+    // a property in a class that has one or more validators attached to it
+    // eg. ['required', 'positive']
+    [propertyName: string]: string[];
+  };
+}
+
+const registeredValidators: ValidatorConfig = {};
+
+function Required(target: any, propertyName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propertyName]: ['required'],
+  };
+}
+
+function PositiveNumber(target: any, propertyName: string) {
+  registeredValidators[target.constructor.name] = {
+    ...registeredValidators[target.constructor.name],
+    [propertyName]: ['positive'],
+  };
+}
+
+// Finds any validation functions registered on the object passed in,
+// and executes them
+function validate(obj: any) {
+  const objectValidatorConfig = registeredValidators[obj.constructor.name];
+  if (!objectValidatorConfig) {
+    // no validation was specified so the object is valid
+    return true;
+  }
+  let isValid = true;
+  for (const prop in objectValidatorConfig) {
+    for (const validator of objectValidatorConfig[prop]) {
+      switch (validator) {
+        case 'required':
+          isValid = isValid && !!obj[prop];
+          break;
+        case 'positive':
+          isValid = isValid && obj[prop] > 0;
+          break;
+      }
+    }
+  }
+  return isValid;
+}
+
 class Course {
+  @Required
   title: string;
+  @PositiveNumber
   price: number;
 
   constructor(title: string, price: number) {
@@ -96,5 +146,9 @@ courseForm.addEventListener('submit', (event) => {
   const price = +priceEl.value;
 
   const createdCourse = new Course(title, price);
+  if (!validate(createdCourse)) {
+    alert('Invalid input, please try again!');
+    return;
+  }
   console.log(createdCourse);
 });
